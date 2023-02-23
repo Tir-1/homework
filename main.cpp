@@ -1,71 +1,35 @@
 #include <iostream>
-#include <iterator> 
+#include <vector>
 #include <map>
+#include <string>
 using namespace std;
-int question(){
-	cout << "Available functions" << endl;
-	cout << "Press 0 to find out the number of residents of the house" << endl;
-	cout << "Press 1 to add a new home" << endl;
-	cout << "Press 2 to delete the house" << endl;
-	int answer;
-	cin >> answer;
-	return answer;
+void chezar(map<string, int> first, map<int, string> second, int k, vector<string> str, int num) {
+	for (int i = 0; i < num; i++) {
+		int n = first[str[i]] + k;
+		while (n > 32) { n -= 32; }
+		cout << second[n];
+	}
+	cout << endl;
 }
-void answer(map<int, int> houses, int n) {
-	int logic = question();
-	if (logic == 0) {
-		cout << "Enter the house number" << endl;
-		int num;
-		cin >> num;
-		if (num > 0 and num < n + 1) {
-			cout << "In this house lives " << houses[num] << " people." << endl;
-		}
-		else {
-			cout << "Incorrect input" << endl;
-		}
-	}
-	if (logic == 1) {
-		cout << "How many people live in this house?" << endl;
-		int a; cin >> a;
-		n += 1;
-		houses[n] = a;
-		cout << "OK" << endl;
-	}
-	if (logic == 2) {
-		cout << "Enter the house number you want to delete" << endl;
-		int b; cin >> b;
-		if (b > 0 and b < n + 1) {
-			map<int, int>::iterator iter;
-			iter = houses.find(b);
-			houses.erase(iter);
-			if (b != n) {
-				for (int i = b + 1; i < n + 1; ++i) {
-					int peoples = houses[i];
-					iter = houses.find(i);
-					houses.erase(iter);
-					houses[i - 1] = peoples;
-				}
-			}
-			n -= 1;
-			cout << "The object has been deleted. Numbering changed" << endl;
-				}
-		else {
-			cout << "Incorrect input";
-		}
-	}
-	answer(houses, n);
-}
-
 int main() {
-	map<int, int> houses;
-	int n;
-	cout << "How many houses are there on the street?" << endl;
-	cin >> n;
-	for (int i = 0; i < n; ++i) {
-		cout << "How many people live in house number " << i + 1 << "?" << endl;
-		int k;
-		cin >> k;
-		houses[i + 1] = k;
+	setlocale(LC_ALL, "Russian");
+	string alphabet[] = { "À","Á","Â","Ã","Ä","Å","¨","Æ","Ç","È","É","Ê","Ë","Ì","Í","Î","Ï","Ð","Ñ","Ò","Ó","Ô","Õ","Ö","×","Ø","Ù","Ú","Û","Ü","Ý","Þ","ß" };
+	map<string, int> first;
+	map<int, string> second;
+	for (int i = 0; i < 33; i++) {
+		first[alphabet[i]] = i;
+		second[i] = alphabet[i];
 	}
-	answer(houses, n);
+	vector<string> name= { "Ò","Å","Ì","È","Ð" };
+	vector<string> surname = { "Ê","Ó","Ø","Ê","À","Ë","Î","Â" };
+	vector<string> patronymic = { "À","Ì","À","Í","Ã","À","Ë","È","Å","Â","È","×" };
+	int k1 = 13;
+	int k2 = 6;
+	int k3 = 28;
+	int num1 = 5;
+	int num2 = 8;
+	int num3 = 12;
+	chezar(first, second, k1, name, num1);
+	chezar(first, second, k2, surname, num2);
+	chezar(first, second, k3, patronymic, num3);
 }
